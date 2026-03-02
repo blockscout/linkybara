@@ -1,6 +1,6 @@
 const { describe, it } = require("node:test");
 const assert = require("node:assert");
-const { rewriteExplorerUrl, isSourceHost } = require("./explorerMapping.js");
+const { rewriteExplorerUrl, isSourceHost, isTargetHost } = require("./explorerMapping.js");
 
 const validAddress = "0x4838b106fce9647bdf1e7877bf73ce8b0bad5f97";
 const validTxHash = "0xf67c3aa7ca07b6929821bb63c480b8b131800a6885e0bcc5c4853759910f41ab";
@@ -131,5 +131,34 @@ describe("isSourceHost", () => {
     // must not rewrite any links so the source explorer remains usable.
     assert.strictEqual(isSourceHost("etherscan.io"), true);
     assert.strictEqual(isSourceHost("polygonscan.com"), true);
+  });
+});
+
+describe("isTargetHost", () => {
+  it("returns true for all configured target explorer hosts", () => {
+    const targetHosts = [
+      "eth.blockscout.com",
+      "explorer.optimism.io",
+    ];
+    for (const host of targetHosts) {
+      assert.strictEqual(isTargetHost(host), true, `expected isTargetHost("${host}") === true`);
+    }
+  });
+
+  it("returns true for subdomains of blockscout.com", () => {
+    assert.strictEqual(isTargetHost("api.eth.blockscout.com"), true);
+  });
+
+  it("returns false for source hosts and unknown hosts", () => {
+    assert.strictEqual(isTargetHost("etherscan.io"), false);
+    assert.strictEqual(isTargetHost("polygonscan.com"), false);
+    assert.strictEqual(isTargetHost("example.com"), false);
+  });
+
+  it("is used by content script to skip rewriting when user is on target explorer", () => {
+    // When the page host is a target host (e.g. eth.blockscout.com), the content script
+    // must not rewrite any links so the target explorer remains usable.
+    assert.strictEqual(isTargetHost("eth.blockscout.com"), true);
+    assert.strictEqual(isTargetHost("explorer.optimism.io"), true);
   });
 });

@@ -5,6 +5,11 @@
   "description": "The capybara that munches through your old block explorer links and replaces them with Blockscout.",
   "permissions": ["storage", "activeTab"],
   "host_permissions": ["<all_urls>"],
+  "icons": {
+    "16": "icons/16.png",
+    "48": "icons/48.png",
+    "128": "icons/128.png"
+  },
   "action": {
     "default_popup": "src/popup/popup.html",
     "default_icon": {

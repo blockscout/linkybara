@@ -101,6 +101,18 @@ function isSourceHost(hostname) {
   return getMappingForHost(hostname) !== null;
 }
 
+const TARGET_HOST_LIST = [...new Set(HOST_MAPPINGS.map((m) => m.targetHost.toLowerCase()))];
+
+/** True if hostname is a configured target explorer or any subdomain of one (do not rewrite links when the user is on this host). */
+function isTargetHost(hostname) {
+  if (hostname == null) return false;
+  const lower = hostname.toLowerCase();
+  if(lower.endsWith(".blockscout.com")){
+    return true;
+  }
+  return TARGET_HOST_LIST.some((t) => lower === t);
+}
+
 function validateParams(params) {
   for (const [key, value] of Object.entries(params)) {
     const re = PARAM_PATTERNS[key];
@@ -157,6 +169,8 @@ function rewriteExplorerUrl(urlString) {
 if (typeof globalThis !== "undefined") {
   globalThis.rewriteExplorerUrl = rewriteExplorerUrl;
   globalThis.isSourceHost = isSourceHost;
+  globalThis.isTargetHost = isTargetHost;
 }
 // Expose for Node (unit tests)
-if (typeof module !== "undefined" && module.exports) module.exports = { rewriteExplorerUrl, isSourceHost };
+if (typeof module !== "undefined" && module.exports)
+  module.exports = { rewriteExplorerUrl, isSourceHost, isTargetHost };
