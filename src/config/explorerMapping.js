@@ -96,6 +96,11 @@ function getMappingForHost(sourceHostname) {
   return null;
 }
 
+/** True if hostname is a configured source explorer (do not rewrite links when the user is on this host). */
+function isSourceHost(hostname) {
+  return getMappingForHost(hostname) !== null;
+}
+
 function validateParams(params) {
   for (const [key, value] of Object.entries(params)) {
     const re = PARAM_PATTERNS[key];
@@ -149,6 +154,9 @@ function rewriteExplorerUrl(urlString) {
 }
 
 // Expose for content script (bundled script runs in IIFE)
-if (typeof globalThis !== "undefined") globalThis.rewriteExplorerUrl = rewriteExplorerUrl;
+if (typeof globalThis !== "undefined") {
+  globalThis.rewriteExplorerUrl = rewriteExplorerUrl;
+  globalThis.isSourceHost = isSourceHost;
+}
 // Expose for Node (unit tests)
-if (typeof module !== "undefined" && module.exports) module.exports = { rewriteExplorerUrl };
+if (typeof module !== "undefined" && module.exports) module.exports = { rewriteExplorerUrl, isSourceHost };

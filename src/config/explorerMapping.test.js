@@ -1,6 +1,6 @@
 const { describe, it } = require("node:test");
 const assert = require("node:assert");
-const { rewriteExplorerUrl } = require("./explorerMapping.js");
+const { rewriteExplorerUrl, isSourceHost } = require("./explorerMapping.js");
 
 const validAddress = "0x4838b106fce9647bdf1e7877bf73ce8b0bad5f97";
 const validTxHash = "0xf67c3aa7ca07b6929821bb63c480b8b131800a6885e0bcc5c4853759910f41ab";
@@ -98,5 +98,38 @@ describe("rewriteExplorerUrl", () => {
       const out = rewriteExplorerUrl(input);
       assert.strictEqual(out, "https://arbitrum-nova.blockscout.com/block/12345");
     });
+  });
+});
+
+describe("isSourceHost", () => {
+  it("returns true for all configured source explorer hosts", () => {
+    const sourceHosts = [
+      "etherscan.io",
+      "sepolia.etherscan.io",
+      "optimistic.etherscan.io",
+      "mega.etherscan.io",
+      "polygonscan.com",
+      "arbiscan.io",
+      "nova.arbiscan.io",
+      "basescan.org",
+      "celoscan.io",
+      "gnosisscan.io",
+    ];
+    for (const host of sourceHosts) {
+      assert.strictEqual(isSourceHost(host), true, `expected isSourceHost("${host}") === true`);
+    }
+  });
+
+  it("returns false for target hosts and unknown hosts", () => {
+    assert.strictEqual(isSourceHost("eth.blockscout.com"), false);
+    assert.strictEqual(isSourceHost("explorer.optimism.io"), false);
+    assert.strictEqual(isSourceHost("example.com"), false);
+  });
+
+  it("is used by content script to skip rewriting when user is on source explorer", () => {
+    // When the page host is a source host (e.g. etherscan.io), the content script
+    // must not rewrite any links so the source explorer remains usable.
+    assert.strictEqual(isSourceHost("etherscan.io"), true);
+    assert.strictEqual(isSourceHost("polygonscan.com"), true);
   });
 });

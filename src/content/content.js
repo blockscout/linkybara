@@ -21,6 +21,8 @@ function runWhenReady() {
     const disabled = Array.isArray(result[STORAGE_KEY]) ? result[STORAGE_KEY] : [];
     const hostname = document.location.hostname;
     if (disabled.includes(hostname)) return;
+    // Never rewrite links when we're on a source explorer (e.g. etherscan.io) so it remains usable
+    if (typeof isSourceHost !== "undefined" && isSourceHost(hostname)) return;
 
     scanAndReplace(document.body);
 
@@ -54,5 +56,6 @@ chrome.storage.onChanged.addListener((changes, areaName) => {
   const disabled = Array.isArray(changes[STORAGE_KEY].newValue) ? changes[STORAGE_KEY].newValue : [];
   const hostname = document.location.hostname;
   if (disabled.includes(hostname)) return;
+  if (typeof isSourceHost !== "undefined" && isSourceHost(hostname)) return;
   scanAndReplace(document.body);
 });
