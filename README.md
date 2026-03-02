@@ -29,6 +29,10 @@ Explorer mapping is defined in **`src/config/explorerMapping.js`**. After editin
 - **Route patterns**: Use placeholders `{number}`, `{addressHash}`, `{txHash}` for dynamic segments (validated: digits; 0x+40 hex; 0x+64 hex). Static paths (e.g. `/charts` → `/stats`) have no placeholders.
 - **path-to-regexp** is used for matching and compiling paths; see **`src/config/examples.md`** for the full config shape and examples.
 
+## Tests
+
+Run **`npm test`** to execute unit tests for the explorer mapping (`src/config/explorerMapping.test.js`). Uses Node’s built-in test runner.
+
 ## Icons
 
 Placeholder icons are in `icons/` (16.png, 48.png, 128.png). Replace them with your own assets if desired.

@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "build": "node build.js",
+    "test": "node --test src/config/explorerMapping.test.js",
     "prepack": "npm run build"
   },
   "devDependencies": {

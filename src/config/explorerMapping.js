@@ -31,15 +31,11 @@ const DEFAULT_ROUTES = [
  * Source host is matched case-insensitively (exact or suffix).
  * Routes are tried in order; first match wins.
  */
+// Order matters: more specific hosts (subdomains) must appear before parent (e.g. optimistic.etherscan.io before etherscan.io).
 const HOST_MAPPINGS = [
   {
     sourceHost: "sepolia.etherscan.io",
     targetHost: "sepolia.blockscout.com",
-    routes: DEFAULT_ROUTES,
-  },
-  {
-    sourceHost: "etherscan.io",
-    targetHost: "eth.blockscout.com",
     routes: DEFAULT_ROUTES,
   },
   {
@@ -48,18 +44,28 @@ const HOST_MAPPINGS = [
     routes: DEFAULT_ROUTES,
   },
   {
+    sourceHost: "mega.etherscan.io",
+    targetHost: "megaeth.blockscout.com",
+    routes: DEFAULT_ROUTES,
+  },
+  {
+    sourceHost: "etherscan.io",
+    targetHost: "eth.blockscout.com",
+    routes: DEFAULT_ROUTES,
+  },
+  {
     sourceHost: "polygonscan.com",
     targetHost: "polygon.blockscout.com",
     routes: DEFAULT_ROUTES,
   },
   {
-    sourceHost: "arbiscan.io",
-    targetHost: "arbitrum.blockscout.com",
+    sourceHost: "nova.arbiscan.io",
+    targetHost: "arbitrum-nova.blockscout.com",
     routes: DEFAULT_ROUTES,
   },
   {
-    sourceHost: "nova.arbiscan.io",
-    targetHost: "arbitrum-nova.blockscout.com",
+    sourceHost: "arbiscan.io",
+    targetHost: "arbitrum.blockscout.com",
     routes: DEFAULT_ROUTES,
   },
   {
@@ -75,11 +81,6 @@ const HOST_MAPPINGS = [
   {
     sourceHost: "basescan.org",
     targetHost: "base.blockscout.com",
-    routes: DEFAULT_ROUTES,
-  },
-  {
-    sourceHost: "mega.etherscan.io",
-    targetHost: "megaeth.blockscout.com",
     routes: DEFAULT_ROUTES,
   },
 ];
@@ -149,3 +150,5 @@ function rewriteExplorerUrl(urlString) {
 
 // Expose for content script (bundled script runs in IIFE)
 if (typeof globalThis !== "undefined") globalThis.rewriteExplorerUrl = rewriteExplorerUrl;
+// Expose for Node (unit tests)
+if (typeof module !== "undefined" && module.exports) module.exports = { rewriteExplorerUrl };
