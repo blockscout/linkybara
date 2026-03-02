@@ -18,6 +18,14 @@ function toPathToRegexpPattern(pattern) {
   return pattern.replace(/\{(\w+)\}/g, ":$1");
 }
 
+const DEFAULT_ROUTES = [
+  { source: "/block/{number}", target: "/block/{number}" },
+  { source: "/tx/{txHash}", target: "/tx/{txHash}" },
+  { source: "/address/{addressHash}", target: "/address/{addressHash}" },
+  { source: "/token/{addressHash}", target: "/token/{addressHash}" },
+  { source: "/charts", target: "/stats" },
+];
+
 /**
  * Host mappings: for each source host, target host and route list.
  * Source host is matched case-insensitively (exact or suffix).
@@ -27,46 +35,52 @@ const HOST_MAPPINGS = [
   {
     sourceHost: "sepolia.etherscan.io",
     targetHost: "sepolia.blockscout.com",
-    routes: [
-      { source: "/block/{number}", target: "/block/{number}" },
-      { source: "/tx/{txHash}", target: "/tx/{txHash}" },
-      { source: "/address/{addressHash}", target: "/address/{addressHash}" },
-      { source: "/token/{addressHash}", target: "/token/{addressHash}" },
-      { source: "/charts", target: "/stats" },
-    ],
+    routes: DEFAULT_ROUTES,
   },
   {
     sourceHost: "etherscan.io",
     targetHost: "eth.blockscout.com",
-    routes: [
-      { source: "/block/{number}", target: "/block/{number}" },
-      { source: "/tx/{txHash}", target: "/tx/{txHash}" },
-      { source: "/address/{addressHash}", target: "/address/{addressHash}" },
-      { source: "/token/{addressHash}", target: "/token/{addressHash}" },
-      { source: "/charts", target: "/stats" },
-    ],
+    routes: DEFAULT_ROUTES,
   },
   {
     sourceHost: "optimistic.etherscan.io",
     targetHost: "explorer.optimism.io",
-    routes: [
-      { source: "/block/{number}", target: "/block/{number}" },
-      { source: "/tx/{txHash}", target: "/tx/{txHash}" },
-      { source: "/address/{addressHash}", target: "/address/{addressHash}" },
-      { source: "/token/{addressHash}", target: "/token/{addressHash}" },
-      { source: "/charts", target: "/stats" },
-    ],
+    routes: DEFAULT_ROUTES,
   },
   {
     sourceHost: "polygonscan.com",
     targetHost: "polygon.blockscout.com",
-    routes: [
-      { source: "/block/{number}", target: "/block/{number}" },
-      { source: "/tx/{txHash}", target: "/tx/{txHash}" },
-      { source: "/address/{addressHash}", target: "/address/{addressHash}" },
-      { source: "/token/{addressHash}", target: "/token/{addressHash}" },
-      { source: "/charts", target: "/stats" },
-    ],
+    routes: DEFAULT_ROUTES,
+  },
+  {
+    sourceHost: "arbiscan.io",
+    targetHost: "arbitrum.blockscout.com",
+    routes: DEFAULT_ROUTES,
+  },
+  {
+    sourceHost: "nova.arbiscan.io",
+    targetHost: "arbitrum-nova.blockscout.com",
+    routes: DEFAULT_ROUTES,
+  },
+  {
+    sourceHost: "celoscan.io",
+    targetHost: "celo.blockscout.com",
+    routes: DEFAULT_ROUTES,
+  },
+  {
+    sourceHost: "gnosisscan.io",
+    targetHost: "gnosis.blockscout.com",
+    routes: DEFAULT_ROUTES,
+  },
+  {
+    sourceHost: "basescan.org",
+    targetHost: "base.blockscout.com",
+    routes: DEFAULT_ROUTES,
+  },
+  {
+    sourceHost: "mega.etherscan.io",
+    targetHost: "megaeth.blockscout.com",
+    routes: DEFAULT_ROUTES,
   },
 ];
 
