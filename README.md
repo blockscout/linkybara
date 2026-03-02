@@ -1,5 +1,7 @@
 # Linkybara
 
+**Source:** [github.com/blockscout/linkybara](https://github.com/blockscout/linkybara)
+
 The capybara that munches through your old block explorer links and replaces them with Blockscout. You configure source → target host and path patterns; for example (with the default config):
 
 - `https://etherscan.io/address/0x...` → `https://eth.blockscout.com/address/0x...`
