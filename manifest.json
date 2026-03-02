@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Blockscout Link Replacer",
+  "version": "1.0.0",
+  "description": "Replaces Etherscan-style explorer links with Blockscout-style links on web pages.",
+  "permissions": ["storage", "activeTab"],
+  "host_permissions": ["<all_urls>"],
+  "action": {
+    "default_popup": "src/popup/popup.html",
+    "default_icon": {
+      "16": "icons/16.png",
+      "48": "icons/48.png",
+      "128": "icons/128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["src/config/explorerMapping.bundle.js", "src/content/content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

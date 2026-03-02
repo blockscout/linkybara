@@ -1,0 +1,15 @@
+{
+  "name": "blockscout-link-replacer",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node build.js",
+    "prepack": "npm run build"
+  },
+  "devDependencies": {
+    "esbuild": "^0.24.0"
+  },
+  "dependencies": {
+    "path-to-regexp": "^8.3.0"
+  }
+}
