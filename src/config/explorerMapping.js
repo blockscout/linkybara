@@ -31,7 +31,7 @@ const DEFAULT_ROUTES = [
  * Source host is matched case-insensitively (exact or suffix).
  * Routes are tried in order; first match wins.
  */
-// Order matters: more specific hosts (subdomains) must appear before parent (e.g. optimistic.etherscan.io before etherscan.io).
+// Order matters: more specific hosts (subdomains) must appear before parent (e.g. chain.explorer.com before explorer.com).
 const HOST_MAPPINGS = [
   {
     sourceHost: "sepolia.etherscan.io",

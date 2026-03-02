@@ -7,7 +7,7 @@ const validTxHash = "0xf67c3aa7ca07b6929821bb63c480b8b131800a6885e0bcc5c48537599
 
 describe("rewriteExplorerUrl", () => {
   describe("dynamic routes", () => {
-    it("rewrites address URL for etherscan.io to eth.blockscout.com", () => {
+    it("rewrites address URL from source host to target host", () => {
       const input = `https://etherscan.io/address/${validAddress}`;
       const out = rewriteExplorerUrl(input);
       assert.strictEqual(out, `https://eth.blockscout.com/address/${validAddress}`);
@@ -19,19 +19,19 @@ describe("rewriteExplorerUrl", () => {
       assert.strictEqual(out, `https://polygon.blockscout.com/tx/${validTxHash}`);
     });
 
-    it("rewrites block URL for optimistic.etherscan.io to explorer.optimism.io", () => {
+    it("rewrites block URL from subdomain source to target", () => {
       const input = "https://optimistic.etherscan.io/block/148428458";
       const out = rewriteExplorerUrl(input);
       assert.strictEqual(out, "https://explorer.optimism.io/block/148428458");
     });
 
-    it("rewrites token URL for etherscan.io", () => {
+    it("rewrites token URL from source host to target host", () => {
       const input = `https://etherscan.io/token/${validAddress}`;
       const out = rewriteExplorerUrl(input);
       assert.strictEqual(out, `https://eth.blockscout.com/token/${validAddress}`);
     });
 
-    it("rewrites for subdomain (sepolia.etherscan.io)", () => {
+    it("rewrites for subdomain source host", () => {
       const input = `https://sepolia.etherscan.io/address/${validAddress}`;
       const out = rewriteExplorerUrl(input);
       assert.strictEqual(out, `https://sepolia.blockscout.com/address/${validAddress}`);
@@ -39,7 +39,7 @@ describe("rewriteExplorerUrl", () => {
   });
 
   describe("static routes", () => {
-    it("rewrites /charts to /stats for etherscan.io", () => {
+    it("rewrites /charts to /stats", () => {
       const input = "https://etherscan.io/charts";
       const out = rewriteExplorerUrl(input);
       assert.strictEqual(out, "https://eth.blockscout.com/stats");
@@ -59,7 +59,7 @@ describe("rewriteExplorerUrl", () => {
       assert.strictEqual(rewriteExplorerUrl("https://example.com/address/0x123"), null);
     });
 
-    it("returns null for known host but unknown path", () => {
+    it("returns null for configured host but unknown path", () => {
       assert.strictEqual(rewriteExplorerUrl("https://etherscan.io/unknown/path"), null);
     });
 
@@ -67,13 +67,13 @@ describe("rewriteExplorerUrl", () => {
       assert.strictEqual(rewriteExplorerUrl("not-a-url"), null);
     });
 
-    it("does not match address with wrong length (tx hash in address path)", () => {
+    it("does not match address with wrong length (tx hash in address path) for configured source", () => {
       const input = `https://etherscan.io/address/${validTxHash}`;
       const out = rewriteExplorerUrl(input);
       assert.strictEqual(out, null);
     });
 
-    it("does not match tx with wrong length (address in tx path)", () => {
+    it("does not match tx with wrong length (address in tx path) for configured source", () => {
       const input = `https://etherscan.io/tx/${validAddress}`;
       const out = rewriteExplorerUrl(input);
       assert.strictEqual(out, null);

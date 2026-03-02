@@ -4,6 +4,8 @@
 
 Only the **path** is used for matching and rewriting (query and fragment are preserved). The full path must match a route; no partial or prefix match.
 
+Example transformations (default config):
+
 | Source link | Target link |
 | --- | --- |
 | https://etherscan.io/address/0x4838b106fce9647bdf1e7877bf73ce8b0bad5f97 | https://eth.blockscout.com/address/0x4838B106FCe9647Bdf1E7877BF73cE8B0BAD5f97 |
@@ -29,7 +31,7 @@ Dynamic path segments are validated by **param name**:
 
 Each entry in `HOST_MAPPINGS` has:
 
-- **`sourceHost`** – Matched case-insensitively (exact or suffix, e.g. `etherscan.io` matches `sepolia.etherscan.io`). More specific hosts should appear first.
+- **`sourceHost`** – Matched case-insensitively (exact or suffix, e.g. `explorer.com` matches `chain.explorer.com`). More specific hosts should appear first.
 - **`targetHost`** – Host used for the rewritten URL.
 - **`routes`** – Array of `{ source, target }` path patterns. First match wins.
 
@@ -37,8 +39,8 @@ Example:
 
 ```js
 {
-  sourceHost: "etherscan.io",
-  targetHost: "eth.blockscout.com",
+  sourceHost: "source.explorer.com",
+  targetHost: "target.explorer.com",
   routes: [
     { source: "/block/{number}", target: "/block/{number}" },
     { source: "/tx/{txHash}", target: "/tx/{txHash}" },

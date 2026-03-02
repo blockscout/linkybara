@@ -1,6 +1,6 @@
 # Blockscout Link Replacer
 
-Chrome extension that rewrites Etherscan-style blockchain explorer links to Blockscout-style links on any webpage. For example:
+Chrome extension that rewrites blockchain explorer links to Blockscout explorers links on any webpage. You configure source → target host and path patterns; for example (with the default config):
 
 - `https://etherscan.io/address/0x...` → `https://eth.blockscout.com/address/0x...`
 - `https://sepolia.etherscan.io/tx/0x...` → `https://sepolia.blockscout.com/tx/0x...`
@@ -17,7 +17,7 @@ The extension is **enabled by default on all pages**. You can disable it for spe
 
 ## Usage
 
-- **Automatic**: On any page, links to configured explorers (e.g. Etherscan) are rewritten to Blockscout when the page loads and when new links are added (e.g. in SPAs).
+- **Automatic**: On any page, links to configured source explorers are rewritten to their target explorers when the page loads and when new links are added (e.g. in SPAs).
 - **Disable on a site**: Click the extension icon, then click **Disable on this site**. The current tab’s hostname is added to the disabled list and links are no longer rewritten on that site. Click **Enable on this site** to remove it from the list.
 - **Disabled sites list**: The popup shows all hostnames where the extension is disabled; use **Remove** to re-enable rewriting on that site.
 
@@ -25,7 +25,7 @@ The extension is **enabled by default on all pages**. You can disable it for spe
 
 Explorer mapping is defined in **`src/config/explorerMapping.js`**. After editing it, run **`npm run build`** so the content script loads the updated bundle.
 
-- **HOST_MAPPINGS**: For each source host, define **targetHost** and a **routes** array of `{ source, target }` path patterns. Source host is matched exactly or as a suffix (e.g. `etherscan.io` matches `sepolia.etherscan.io`); list more specific hosts first.
+- **HOST_MAPPINGS**: For each source host, define **targetHost** and a **routes** array of `{ source, target }` path patterns. Source host is matched exactly or as a suffix (e.g. `explorer.com` matches `chain.explorer.com`); list more specific hosts first.
 - **Route patterns**: Use placeholders `{number}`, `{addressHash}`, `{txHash}` for dynamic segments (validated: digits; 0x+40 hex; 0x+64 hex). Static paths (e.g. `/charts` → `/stats`) have no placeholders.
 - **path-to-regexp** is used for matching and compiling paths; see **`src/config/examples.md`** for the full config shape and examples.
 

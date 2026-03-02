@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Blockscout Link Replacer",
   "version": "1.0.0",
-  "description": "Replaces Etherscan-style explorer links with Blockscout-style links on web pages.",
+  "description": "Replaces any blockchain explorer links with Blockscout explorer links on web pages.",
   "permissions": ["storage", "activeTab"],
   "host_permissions": ["<all_urls>"],
   "action": {
