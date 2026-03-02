@@ -1,6 +1,6 @@
-# Blockscout Link Replacer
+# Linkybara
 
-Chrome extension that rewrites blockchain explorer links to Blockscout explorers links on any webpage. You configure source → target host and path patterns; for example (with the default config):
+The capybara that munches through your old block explorer links and replaces them with Blockscout. You configure source → target host and path patterns; for example (with the default config):
 
 - `https://etherscan.io/address/0x...` → `https://eth.blockscout.com/address/0x...`
 - `https://sepolia.etherscan.io/tx/0x...` → `https://sepolia.blockscout.com/tx/0x...`

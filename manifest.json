@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Blockscout Link Replacer",
+  "name": "Linkybara",
   "version": "1.0.0",
-  "description": "Replaces any blockchain explorer links with Blockscout explorer links on web pages.",
+  "description": "The capybara that munches through your old block explorer links and replaces them with Blockscout.",
   "permissions": ["storage", "activeTab"],
   "host_permissions": ["<all_urls>"],
   "action": {
