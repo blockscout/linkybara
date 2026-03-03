@@ -19,39 +19,23 @@ async function getCurrentHostname() {
   }
 }
 
-function renderDisabledList(hosts) {
-  const el = document.getElementById("disabled-sites-list");
-  if (!hosts.length) {
-    el.innerHTML = '<p class="empty-msg">No sites disabled.</p>';
-    return;
+async function animateCapybara(disabled) {
+  const image1 = document.getElementById("capybara-footer-image-1");
+  const image2 = document.getElementById("capybara-footer-image-2");
+  const imageStop = document.getElementById("capybara-footer-image-stop");
+  const text = document.getElementById("capybara-footer-text");
+
+  if(disabled){
+    image1.style.display = "none";
+    image2.style.display = "none";
+    imageStop.style.display = "block";
+    text.style.display = "none";
+  } else {
+    image1.style.display = "block";
+    image2.style.display = "block";
+    imageStop.style.display = "none";
+    text.style.display = "block";
   }
-  el.innerHTML = hosts
-    .map(
-      (host) =>
-        `<div class="disabled-item">
-          <span>${escapeHtml(host)}</span>
-          <button data-host="${escapeAttr(host)}">Remove</button>
-        </div>`
-    )
-    .join("");
-  el.querySelectorAll("button[data-host]").forEach((btn) => {
-    btn.addEventListener("click", async () => {
-      const host = btn.getAttribute("data-host");
-      const list = await getDisabledSites();
-      await setDisabledSites(list.filter((h) => h !== host));
-      refresh();
-    });
-  });
-}
-
-function escapeHtml(s) {
-  const div = document.createElement("div");
-  div.textContent = s;
-  return div.innerHTML;
-}
-
-function escapeAttr(s) {
-  return s.replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
 async function refresh() {
@@ -60,21 +44,19 @@ async function refresh() {
   const isDisabled = host && disabled.includes(host);
 
   const toggle = document.getElementById("toggle-site");
-  const status = document.getElementById("status");
 
   if (host) {
-    toggle.textContent = isDisabled ? "Enable on this site" : "Disable on this site";
-    toggle.classList.toggle("primary", !isDisabled);
-    status.textContent = isDisabled ? "Disabled here" : "Active here";
+    toggle.checked = !isDisabled;
+    toggle.disabled = false;
+    animateCapybara(isDisabled);
   } else {
+    toggle.checked = false;
     toggle.disabled = true;
-    status.textContent = "Cannot read this tab";
+    animateCapybara(true);
   }
-
-  renderDisabledList(disabled);
 }
 
-document.getElementById("toggle-site").addEventListener("click", async () => {
+document.getElementById("toggle-site").addEventListener("change", async () => {
   const host = await getCurrentHostname();
   if (!host) return;
   const list = await getDisabledSites();
