@@ -3,33 +3,39 @@
 <head>
   <meta charset="utf-8">
   <title>Linkybara</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     body {
-      width: 320px;
-      padding: 12px;
-      font-family: system-ui, sans-serif;
-      font-size: 14px;
-    }
-    h2 {
-      margin: 0 0 12px;
+      width: 400px;
+      padding: 8px 12px;
+      font-family: "Inter", system-ui, sans-serif;
       font-size: 16px;
     }
+    h2 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      font-size: 24px;
+      text-align: center;
+    }
+    .description {
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
     .toggle-container {
       display: flex;
       align-items: center;
       gap: 12px;
-      margin-bottom: 16px;
     }
     #toggle-label {
       cursor: pointer;
-      font-size: 14px;
       color: #333;
     }
     /* Toggle switch */
     .toggle {
       position: relative;
       display: inline-block;
-      width: 44px;
+      width: 40px;
       height: 24px;
       flex-shrink: 0;
     }
@@ -45,7 +51,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background-color: #ccc;
+      background-color: #CBD5E0;
       border-radius: 24px;
       transition: background-color 0.2s;
     }
@@ -68,7 +74,7 @@
       background-color: #9296FF;
     }
     .toggle input:checked + .toggle-slider::before {
-      transform: translateX(20px);
+      transform: translateX(16px);
     }
     .toggle input:focus-visible + .toggle-slider {
       outline: 2px solid #5353D3;
@@ -78,30 +84,45 @@
       opacity: 0.5;
       cursor: not-allowed;
     }
-    .capybara-footer {
+
+    .snippet {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       align-items: center;
-      text-align: center;
+      justify-content: center;
+      gap: 12px;
+      width: calc(100% - 48px);
+      padding: 24px;
+      border-radius: 12px;
+      background-color: #F5F5F5;
     }
-    .capybara-footer-image-container {
+
+    .snippet.active {
+      background-color: #F5F4FF;
+    }
+
+    .snippet-capybara-container {
       position: relative;
-      width: 48px;
-      height: 48px;
     }
-    .capybara-footer-image-container img {
+
+    .snippet-image-container {
+      position: relative;
+      width: 80px;
+      height: 80px;
+    }
+    .snippet-image-container img {
       width: 100%;
       height: 100%;
       object-fit: contain;
     }
-    #capybara-footer-image-2 {
+    #snippet-image-2 {
       position: absolute;
       top: 0;
       left: 0;
       z-index: 1;
       animation: fade-in-out 0.5s linear infinite;
     }
-    #capybara-footer-image-stop {
+    #snippet-image-stop {
       position: absolute;
       top: 0;
       left: 0;
@@ -119,57 +140,47 @@
         opacity: 1;
       }
     }
-    
-    .capybara-footer-text-container {
-      overflow: hidden;
-      width: 100%;
+    #snippet-grass-container {
+      position: absolute;
+      left: calc(100% - 18px);
+      bottom: 8px;
+      width: 156px;
+      height: 15px;
+      background-image: url("../assets/grass.svg");
+      background-size: contain;
+      background-repeat: repeat-x;
+      background-position-x: 310px;
+      background-position-y: 100%;
+      animation: grass-animation 8s linear infinite;
     }
-    #capybara-footer-text {
-      font-size: 12px;
-      color: #718096;
-      white-space: nowrap;
-      animation: moving-text 10s linear infinite;
-      display: flex;
-      flex-direction: row;
-      gap: 8px;
-    }
-    @keyframes moving-text {
+    @keyframes grass-animation {
       0% {
-        transform: translateX(0);
+        background-position-x: 310px;
       }
       100% {
-        transform: translateX(-100%);
+        background-position-x: 0px;
       }
     }
   </style>
 </head>
 <body>
   <h2>Linkybara</h2>
-  <div class="toggle-container">
-    <label for="toggle-site" id="toggle-label">Enable on this site</label>
-    <label class="toggle" aria-label="Toggle extension on this site">
-      <input type="checkbox" id="toggle-site" checked>
-      <span class="toggle-slider"></span>
-    </label>
-  </div>
-  <div class="capybara-footer">
-    <div class="capybara-footer-image-container">
-      <img id="capybara-footer-image-1" src="../assets/capy_1.svg" alt="Linkybara">
-      <img id="capybara-footer-image-2" src="../assets/capy_2.svg" alt="Linkybara">
-      <img id="capybara-footer-image-stop" src="../assets/capy_stop.svg" alt="Linkybara">
+  <p class="description">The capybara that munches through your old block explorer links and replaces them with Blockscout</p>
+  <div class="snippet">
+    <div class="snippet-capybara-container">
+      <div class="snippet-image-container">
+        <img id="snippet-image-1" src="../assets/capy_1.svg" alt="Linkybara">
+        <img id="snippet-image-2" src="../assets/capy_2.svg" alt="Linkybara">
+        <img id="snippet-image-stop" src="../assets/capy_stop.svg" alt="Linkybara">
+      </div>
+      <div id="snippet-grass-container"></div>
     </div>
-    <div class="capybara-footer-text-container">
-      <p id="capybara-footer-text">
-        <span>etherscan.io</span>
-        <span>optimistic.etherscan.io</span>
-        <span>mega.etherscan.io</span>
-        <span>polygonscan.com</span>
-        <span>arbiscan.io</span>
-        <span>nova.arbiscan.io</span>
-        <span>basescan.org</span>
-        <span>celoscan.io</span>
-        <span>gnosisscan.io</span>
-      </p>
+    <div class="toggle-container">
+      <label for="toggle-site" id="toggle-label">Replace links for this site</label>
+      <label class="toggle" aria-label="Toggle extension on this site">
+        <input type="checkbox" id="toggle-site" checked>
+        <span class="toggle-slider"></span>
+      </label>
     </div>
   </div>
   <script src="popup.js"></script>

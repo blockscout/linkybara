@@ -23,6 +23,7 @@ const INCLUDED = [
   "src/assets/capy_1.svg",
   "src/assets/capy_2.svg",
   "src/assets/capy_stop.svg",
+  "src/assets/grass.svg",
 ];
 
 function getVersion() {

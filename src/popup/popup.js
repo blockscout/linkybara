@@ -20,21 +20,24 @@ async function getCurrentHostname() {
 }
 
 async function animateCapybara(disabled) {
-  const image1 = document.getElementById("capybara-footer-image-1");
-  const image2 = document.getElementById("capybara-footer-image-2");
-  const imageStop = document.getElementById("capybara-footer-image-stop");
-  const text = document.getElementById("capybara-footer-text");
+  const image1 = document.getElementById("snippet-image-1");
+  const image2 = document.getElementById("snippet-image-2");
+  const imageStop = document.getElementById("snippet-image-stop");
+  const grass = document.getElementById("snippet-grass-container");
+  const snippet = document.querySelector(".snippet");
 
   if(disabled){
     image1.style.display = "none";
     image2.style.display = "none";
     imageStop.style.display = "block";
-    text.style.display = "none";
+    grass.style.display = "none";
+    snippet.classList.remove("active");
   } else {
     image1.style.display = "block";
     image2.style.display = "block";
     imageStop.style.display = "none";
-    text.style.display = "block";
+    grass.style.display = "block";
+    snippet.classList.add("active");
   }
 }
 
