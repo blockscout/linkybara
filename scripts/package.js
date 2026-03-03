@@ -20,6 +20,9 @@ const INCLUDED = [
   "src/popup/popup.js",
   "src/content/content.js",
   "src/config/explorerMapping.bundle.js",
+  "src/assets/capy_1.svg",
+  "src/assets/capy_2.svg",
+  "src/assets/capy_stop.svg",
 ];
 
 function getVersion() {
