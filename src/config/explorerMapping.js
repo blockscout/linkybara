@@ -7,9 +7,11 @@
 const { match, compile } = require("path-to-regexp");
 
 // --- Parameter patterns (for validating dynamic segments) ---
+// addressOrEns: 0x + 40 hex chars, or a domain (one or more parts separated by one or more dots, e.g. vitalik.eth)
 const PARAM_PATTERNS = {
   number: /^\d+$/,
   addressHash: /^0x[a-fA-F0-9]{40}$/,
+  addressOrEns: /^(0x[a-fA-F0-9]{40}|[^.]+(\.+[^.]+)+)$/,
   txHash: /^0x[a-fA-F0-9]{64}$/,
 };
 
@@ -21,7 +23,7 @@ function toPathToRegexpPattern(pattern) {
 const DEFAULT_ROUTES = [
   { source: "/block/{number}", target: "/block/{number}" },
   { source: "/tx/{txHash}", target: "/tx/{txHash}" },
-  { source: "/address/{addressHash}", target: "/address/{addressHash}" },
+  { source: "/address/{addressOrEns}", target: "/address/{addressOrEns}" },
   { source: "/token/{addressHash}", target: "/token/{addressHash}" },
   { source: "/charts", target: "/stats" },
 ];

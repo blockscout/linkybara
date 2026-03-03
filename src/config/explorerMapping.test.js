@@ -36,6 +36,18 @@ describe("rewriteExplorerUrl", () => {
       const out = rewriteExplorerUrl(input);
       assert.strictEqual(out, `https://sepolia.blockscout.com/address/${validAddress}`);
     });
+
+    it("rewrites address URL with ENS domain (e.g. vitalik.eth)", () => {
+      const input = "https://etherscan.io/address/vitalik.eth";
+      const out = rewriteExplorerUrl(input);
+      assert.strictEqual(out, "https://eth.blockscout.com/address/vitalik.eth");
+    });
+
+    it("does not rewrite token URL with ENS domain (tokens support only address hash)", () => {
+      const input = "https://etherscan.io/token/sub.vitalik.eth";
+      const out = rewriteExplorerUrl(input);
+      assert.strictEqual(out, null);
+    });
   });
 
   describe("static routes", () => {
