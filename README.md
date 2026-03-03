@@ -1,6 +1,8 @@
 # Linkybara
 
-**Source:** [github.com/blockscout/linkybara](https://github.com/blockscout/linkybara)
+<img src="./icons/48.png" width="48" height="48" alt="Linkybara icon" />
+
+
 
 The capybara that munches through your old block explorer links and replaces them with Blockscout. You configure source → target host and path patterns; for example (with the default config):
 
@@ -21,7 +23,6 @@ The extension is **enabled by default on all pages**. You can disable it for spe
 
 - **Automatic**: On any page, links to configured source explorers are rewritten to their target explorers when the page loads and when new links are added (e.g. in SPAs).
 - **Disable on a site**: Click the extension icon, then click **Disable on this site**. The current tab’s hostname is added to the disabled list and links are no longer rewritten on that site. Click **Enable on this site** to remove it from the list.
-- **Disabled sites list**: The popup shows all hostnames where the extension is disabled; use **Remove** to re-enable rewriting on that site.
 
 ## Configuration
 
@@ -34,10 +35,6 @@ Explorer mapping is defined in **`src/config/explorerMapping.js`**. After editin
 ## Tests
 
 Run **`npm test`** to execute unit tests for the explorer mapping (`src/config/explorerMapping.test.js`). Uses Node’s built-in test runner.
-
-## Icons
-
-Placeholder icons are in `icons/` (16.png, 48.png, 128.png). Replace them with your own assets if desired.
 
 ## Permissions
 
