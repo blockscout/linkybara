@@ -34,7 +34,7 @@ describe("rewriteExplorerUrl", () => {
     it("rewrites for subdomain source host", () => {
       const input = `https://sepolia.etherscan.io/address/${validAddress}`;
       const out = rewriteExplorerUrl(input);
-      assert.strictEqual(out, `https://sepolia.blockscout.com/address/${validAddress}`);
+      assert.strictEqual(out, `https://eth-sepolia.blockscout.com/address/${validAddress}`);
     });
 
     it("rewrites address URL with ENS domain (e.g. vitalik.eth)", () => {

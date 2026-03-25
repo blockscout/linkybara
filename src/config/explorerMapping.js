@@ -37,7 +37,7 @@ const DEFAULT_ROUTES = [
 const HOST_MAPPINGS = [
   {
     sourceHost: "sepolia.etherscan.io",
-    targetHost: "sepolia.blockscout.com",
+    targetHost: "eth-sepolia.blockscout.com",
     routes: DEFAULT_ROUTES,
   },
   {
